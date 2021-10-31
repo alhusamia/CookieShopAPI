@@ -1,4 +1,4 @@
-const CookieModel = (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
   const Cookie = sequelize.define("Cookie", {
     name: DataTypes.STRING,
     description: DataTypes.STRING,
@@ -7,5 +7,3 @@ const CookieModel = (sequelize, DataTypes) => {
   });
   return Cookie;
 };
-
-module.exports = CookieModel;
