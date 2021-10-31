@@ -1,9 +1,7 @@
-module.exports = (sequelize, DataTypes) => {
-  const Cookie = sequelize.define("Cookie", {
-    name: DataTypes.STRING,
-    description: DataTypes.STRING,
-    price: DataTypes.INTEGER,
-    image: DataTypes.STRING,
+module.exports = (sequelize, DataTypes) =>
+  sequelize.define("Cookie", {
+    name: { type: DataTypes.STRING },
+    description: { type: DataTypes.STRING },
+    price: { type: DataTypes.INTEGER },
+    image: { type: DataTypes.STRING },
   });
-  return Cookie;
-};
