@@ -49,3 +49,18 @@ exports.cookieDelete = async (req, res) => {
     res.status(500).json({ message: error.message ?? "Server Error" });
   }
 };
+
+exports.cookieUpdate = async (req, res) => {
+  try {
+    const { cookieId } = req.params;
+    const foundCookie = await Cookie.findByPk(cookieId);
+    if (foundCookie) {
+      await foundCookie.update(req.body);
+      res.status(204).end();
+    } else {
+      res.status(404).json({ message: "Cookie not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message ?? "Server Error" });
+  }
+};

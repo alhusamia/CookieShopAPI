@@ -4,6 +4,7 @@ const {
   cookieList,
   cookieDetail,
   cookieDelete,
+  cookieUpdate,
 } = require("../controllers/cookiesControllers");
 
 //Mini express app
@@ -16,5 +17,7 @@ router.get("/:cookieId", cookieDetail);
 router.post("/", cookieCreate);
 
 router.delete("/:cookieId", cookieDelete);
+
+router.put("/:cookieId", cookieUpdate);
 
 module.exports = router;
