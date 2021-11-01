@@ -14,9 +14,10 @@ exports.cookieCreate = async (req, res) => {
 };
 
 exports.cookieList = async (req, res) => {
-  const cookies = await Cookie.findAll();
+  const cookies = await Cookie.findAll({
+    attribute: { exclude: ["createdAt", "updatedAt"] },
+  });
   //findAll({attributes:["id","name","price"]}) ==> its return what i need
-  //findAll({attribute:{exclude:["price"]}}) ==> return every thing exept this
   res.json(cookies);
 };
 
