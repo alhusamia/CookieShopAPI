@@ -1,7 +1,7 @@
 const slugify = require("slugify");
 const { Cookie } = require("../db/models");
 
-exports.cookieCreate = async (req, res) => {
+exports.cookieCreate = async (req, res, next) => {
   try {
     const slug = slugify(req.body.name, { lower: true });
     const newData = { slug, ...req.body };
@@ -9,33 +9,37 @@ exports.cookieCreate = async (req, res) => {
 
     res.status(201).json(newCookie);
   } catch (error) {
-    res.status(500).json({ message: error.message ?? "Server Error" });
+    next(error);
   }
 };
 
-exports.cookieList = async (req, res) => {
-  const cookies = await Cookie.findAll({
-    attribute: { exclude: ["createdAt", "updatedAt"] },
-  });
-  //findAll({attributes:["id","name","price"]}) ==> its return what i need
-  res.json(cookies);
+exports.cookieList = async (req, res, next) => {
+  try {
+    const cookies = await Cookie.findAll({
+      attribute: { exclude: ["createdAt", "updatedAt"] },
+    });
+    //findAll({attributes:["id","name","price"]}) ==> its return what i need
+    res.json(cookies);
+  } catch (error) {
+    next(error);
+  }
 };
 
-exports.cookieDetail = async (req, res) => {
+exports.cookieDetail = async (req, res, next) => {
   try {
     const { cookieId } = req.params;
     const foundCookie = await Cookie.findByPk(cookieId);
     if (foundCookie) {
       res.json(foundCookie);
     } else {
-      res.status(404).json({ message: "Not Found" });
+      next({ status: 404, message: "Cookie Not Found" });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message ?? "Server Error" });
+    next(error);
   }
 };
 
-exports.cookieDelete = async (req, res) => {
+exports.cookieDelete = async (req, res, next) => {
   try {
     const { cookieId } = req.params;
     const foundCookie = await Cookie.findByPk(cookieId);
@@ -46,11 +50,11 @@ exports.cookieDelete = async (req, res) => {
       res.status(404).json({ message: "Cookie not found" });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message ?? "Server Error" });
+    next(error);
   }
 };
 
-exports.cookieUpdate = async (req, res) => {
+exports.cookieUpdate = async (req, res, next) => {
   try {
     const { cookieId } = req.params;
     const foundCookie = await Cookie.findByPk(cookieId);
@@ -61,6 +65,6 @@ exports.cookieUpdate = async (req, res) => {
       res.status(404).json({ message: "Cookie not found" });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message ?? "Server Error" });
+    next(error);
   }
 };
