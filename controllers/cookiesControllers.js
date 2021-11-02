@@ -1,6 +1,14 @@
 const slugify = require("slugify");
 const { Cookie } = require("../db/models");
 
+exports.featchCookie = async (cookieId, next) => {
+  try {
+    return await Cookie.findByPk(cookieId);
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.cookieCreate = async (req, res, next) => {
   try {
     const slug = slugify(req.body.name, { lower: true });
@@ -25,45 +33,23 @@ exports.cookieList = async (req, res, next) => {
   }
 };
 
-exports.cookieDetail = async (req, res, next) => {
+exports.cookieDetail = async (req, res) => {
+  res.json(req.cookie);
+};
+
+exports.cookieDelete = async (req, res) => {
   try {
-    const { cookieId } = req.params;
-    const foundCookie = await Cookie.findByPk(cookieId);
-    if (foundCookie) {
-      res.json(foundCookie);
-    } else {
-      next({ status: 404, message: "Cookie Not Found" });
-    }
+    await req.cookie.destroy();
+    res.status(204).end();
   } catch (error) {
     next(error);
   }
 };
 
-exports.cookieDelete = async (req, res, next) => {
+exports.cookieUpdate = async (req, res) => {
   try {
-    const { cookieId } = req.params;
-    const foundCookie = await Cookie.findByPk(cookieId);
-    if (foundCookie) {
-      await foundCookie.destroy();
-      res.status(204).end();
-    } else {
-      res.status(404).json({ message: "Cookie not found" });
-    }
-  } catch (error) {
-    next(error);
-  }
-};
-
-exports.cookieUpdate = async (req, res, next) => {
-  try {
-    const { cookieId } = req.params;
-    const foundCookie = await Cookie.findByPk(cookieId);
-    if (foundCookie) {
-      await foundCookie.update(req.body);
-      res.status(204).end();
-    } else {
-      res.status(404).json({ message: "Cookie not found" });
-    }
+    await req.cookie.update(req.body);
+    res.status(204).end();
   } catch (error) {
     next(error);
   }
