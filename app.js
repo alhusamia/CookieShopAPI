@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const db = require("./db/models");
 //Routes
 const cookiesRouter = require("./routs/cookies");
@@ -7,6 +8,7 @@ const cookiesRouter = require("./routs/cookies");
 const app = express();
 
 //Middleware
+app.use(cors());
 app.use(express.json());
 
 //Using the Routes
