@@ -26,10 +26,10 @@ router.get("/", shopList);
 
 router.get("/:shopId", shopDetail);
 
-router.post("/", shopCreate);
+router.post("/", upload.single("image"), shopCreate);
 
 router.delete("/:shopId", shopDelete);
 
-router.put("/:shopId", shopUpdate);
+router.put("/:shopId", upload.single("image"), shopUpdate);
 
 module.exports = router;

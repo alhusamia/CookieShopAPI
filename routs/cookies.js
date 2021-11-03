@@ -26,10 +26,10 @@ router.get("/", cookieList);
 
 router.get("/:cookieId", cookieDetail);
 
-router.post("/", cookieCreate);
+router.post("/", upload.single("image"), cookieCreate);
 
 router.delete("/:cookieId", cookieDelete);
 
-router.put("/:cookieId", cookieUpdate);
+router.put("/:cookieId", upload.single("image"), cookieUpdate);
 
 module.exports = router;

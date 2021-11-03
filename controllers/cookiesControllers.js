@@ -11,6 +11,9 @@ exports.featchCookie = async (cookieId, next) => {
 
 exports.cookieCreate = async (req, res, next) => {
   try {
+    if (req.file) {
+      req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
+    }
     const slug = slugify(req.body.name, { lower: true });
     const newData = { slug, ...req.body };
     const newCookie = await Cookie.create(newData);
@@ -48,6 +51,9 @@ exports.cookieDelete = async (req, res) => {
 
 exports.cookieUpdate = async (req, res) => {
   try {
+    if (req.file) {
+      req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
+    }
     await req.cookie.update(req.body);
     res.status(204).end();
   } catch (error) {

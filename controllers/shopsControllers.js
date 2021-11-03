@@ -11,6 +11,9 @@ exports.featchShop = async (shopId, next) => {
 
 exports.shopCreate = async (req, res, next) => {
   try {
+    if (req.file) {
+      req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
+    }
     const slug = slugify(req.body.name, { lower: true });
     const newData = { slug, ...req.body };
     const newShop = await Shop.create(newData);
@@ -48,6 +51,9 @@ exports.shopDelete = async (req, res) => {
 
 exports.shopUpdate = async (req, res) => {
   try {
+    if (req.file) {
+      req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
+    }
     await req.shop.update(req.body);
     res.status(204).end();
   } catch (error) {
