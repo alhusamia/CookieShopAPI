@@ -3,6 +3,7 @@ const cors = require("cors");
 
 //Routes
 const cookiesRouter = require("./routs/cookies");
+const shopsRouter = require("./routs/shops");
 
 //Create App Instance
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 
 //Using the Routes
 app.use("/cookies", cookiesRouter);
+app.use("/shops", shopsRouter);
 
 //Not Found Middleware
 app.use((req, res, next) => {
