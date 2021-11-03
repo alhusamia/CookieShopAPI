@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const db = require("./db/models");
+
 //Routes
 const cookiesRouter = require("./routs/cookies");
 
