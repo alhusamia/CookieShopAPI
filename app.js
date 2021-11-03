@@ -28,10 +28,16 @@ app.use((err, req, res, next) => {
 
 const PORT = 8000;
 
-db.sequelize.sync();
-// db.sequelize.sync({ alert: true }); // ==> add the new changes in the model
-// db.sequelize.sync({force:true}); //==> delete all the data in the data base
+const run = async () => {
+  try {
+    await db.sequelize.authenticate();
+    console.log("Connection to the database successful!");
+    await app.listen(PORT, () => {
+      console.log(`The application is running on localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("Error connecting to the database: ", error);
+  }
+};
 
-app.listen(PORT, (req, res) => {
-  console.log(`we are listing to port ${PORT}`);
-});
+run();
