@@ -14,5 +14,15 @@ module.exports = (sequelize, DataTypes) => {
     image: { type: DataTypes.STRING },
   });
   SequelizeSlugify.slugifyModel(Cookie, { source: ["name"] });
+
+  //Realations
+  Cookie.associate = (models) => {
+    //Shop has many cookies
+    models.Shop.hasMany(Cookie, {
+      foreignKey: "shopId", // change the colomn name from the ShopId => shopId
+      as: "cookies", // the alias of the relations
+      allowNull: false,
+    });
+  };
   return Cookie;
 };
