@@ -11,16 +11,8 @@ exports.featchCookie = async (cookieId, next) => {
 exports.cookieList = async (req, res, next) => {
   try {
     const cookies = await Cookie.findAll({
-      attribute: { exclude: ["createdAt", "updatedAt", "shopId"] },
-      include: [
-        {
-          model: Shop,
-          as: "library",
-          attribute: { exclude: ["createdAt", "updatedAt"] },
-        },
-      ],
+      attribute: { exclude: ["createdAt", "updatedAt"] },
     });
-    //findAll({attributes:["id","name","price"]}) ==> its return what i need
     res.json(cookies);
   } catch (error) {
     next(error);
