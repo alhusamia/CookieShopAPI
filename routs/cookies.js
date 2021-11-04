@@ -1,6 +1,5 @@
 const express = require("express");
 const {
-  cookieCreate,
   cookieList,
   cookieDetail,
   cookieDelete,
@@ -25,8 +24,6 @@ router.param("cookieId", async (req, res, next, cookieId) => {
 router.get("/", cookieList);
 
 router.get("/:cookieId", cookieDetail);
-
-router.post("/", upload.single("image"), cookieCreate);
 
 router.delete("/:cookieId", cookieDelete);
 
