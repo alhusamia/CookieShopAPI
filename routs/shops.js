@@ -6,9 +6,8 @@ const {
   shopDelete,
   shopUpdate,
   featchShop,
+  cookieCreate,
 } = require("../controllers/shopsControllers");
-
-const { cookieCreate } = require("../controllers/cookiesControllers");
 
 //Mini express app
 const router = express.Router();
