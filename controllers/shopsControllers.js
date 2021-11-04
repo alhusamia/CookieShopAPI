@@ -14,6 +14,7 @@ exports.cookieCreate = async (req, res, next) => {
     if (req.file) {
       req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
     }
+    req.body.shopId = req.shop.id;
     const slug = slugify(req.body.name, { lower: true });
     const newData = { slug, ...req.body };
     const newCookie = await Cookie.create(newData);
