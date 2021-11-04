@@ -8,6 +8,8 @@ const {
   featchShop,
 } = require("../controllers/shopsControllers");
 
+const { cookieCreate } = require("../controllers/cookiesControllers");
+
 //Mini express app
 const router = express.Router();
 
@@ -27,6 +29,8 @@ router.get("/", shopList);
 router.get("/:shopId", shopDetail);
 
 router.post("/", upload.single("image"), shopCreate);
+
+router.post("/:shopId/cookie", upload.single("image"), cookieCreate);
 
 router.delete("/:shopId", shopDelete);
 
