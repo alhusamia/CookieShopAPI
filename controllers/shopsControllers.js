@@ -1,5 +1,5 @@
 const slugify = require("slugify");
-const { Shop } = require("../db/models");
+const { Shop, Cookie } = require("../db/models");
 
 exports.featchShop = async (shopId, next) => {
   try {
@@ -28,8 +28,13 @@ exports.ShopList = async (req, res, next) => {
   try {
     const Shops = await Shop.findAll({
       attribute: { exclude: ["createdAt", "updatedAt"] },
+      // To show the list of cookies the shop have
+      include: {
+        model: Cookie,
+        as: "cookies", // alias
+        attribute: { exclude: ["createdAt", "updatedAt", "shopId"] },
+      },
     });
-    //findAll({attributes:["id","name","price"]}) ==> its return what i need
     res.json(Shops);
   } catch (error) {
     next(error);
