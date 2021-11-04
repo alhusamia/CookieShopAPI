@@ -48,7 +48,7 @@ exports.ShopList = async (req, res, next) => {
       include: {
         model: Cookie,
         as: "cookies", // alias
-        attribute: { exclude: ["createdAt", "updatedAt", "shopId"] },
+        attribute: ["id"],
       },
     });
     res.json(Shops);
