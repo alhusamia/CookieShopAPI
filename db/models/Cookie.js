@@ -23,6 +23,11 @@ module.exports = (sequelize, DataTypes) => {
       as: "cookies", // the alias of the relations
       allowNull: false,
     });
+    // to show the shop detail in each cookie
+    Cookie.belongTo(models.Shop, {
+      foreignKey: "shopId",
+      as: "library",
+    });
   };
   return Cookie;
 };
