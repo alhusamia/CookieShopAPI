@@ -9,6 +9,21 @@ exports.featchShop = async (shopId, next) => {
   }
 };
 
+exports.cookieCreate = async (req, res, next) => {
+  try {
+    if (req.file) {
+      req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
+    }
+    const slug = slugify(req.body.name, { lower: true });
+    const newData = { slug, ...req.body };
+    const newCookie = await Cookie.create(newData);
+
+    res.status(201).json(newCookie);
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.shopCreate = async (req, res, next) => {
   try {
     if (req.file) {
