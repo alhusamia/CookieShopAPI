@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const passport = require("passport");
+const { localStrategy } = require("./middleware/passport");
 
 //Routes
 const cookiesRouter = require("./routs/cookie");
@@ -12,6 +14,9 @@ const app = express();
 //Middleware
 app.use(cors());
 app.use(express.json());
+//Passport Setup
+app.use(passport.initialize());
+passport.use(localStrategy);
 
 //Using the Routes
 app.use("/cookies", cookiesRouter);
