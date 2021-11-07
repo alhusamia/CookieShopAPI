@@ -15,6 +15,7 @@ app.use(express.json());
 //Using the Routes
 app.use("/cookies", cookiesRouter);
 app.use("/shops", shopsRouter);
+app.use("/media", express.static("media"));
 
 //Not Found Middleware
 app.use((req, res, next) => {
