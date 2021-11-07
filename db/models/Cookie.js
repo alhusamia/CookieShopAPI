@@ -1,3 +1,4 @@
+const SequelizeSlugify = require("sequelize-slugify");
 module.exports = (sequelize, DataTypes) => {
   const Cookie = sequelize.define("Cookie", {
     name: { type: DataTypes.STRING, allowNull: false, unique: true },
