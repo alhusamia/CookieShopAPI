@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { JWT_SECRET, JWT_EXPIRATION_MS } = require("../config/keys");
 
-exposts.signup = async (req, res, next) => {
+exports.signup = async (req, res, next) => {
   try {
     const saltRounds = 10;
     const hashedPass = await bcrypt.hash(req.body.password, saltRounds);
@@ -16,7 +16,7 @@ exposts.signup = async (req, res, next) => {
   }
 };
 
-exposts.signin = async (req, res, next) => {
+exports.signin = async (req, res, next) => {
   const token = generateToken(req.user);
   res.json({ token });
 };
