@@ -7,6 +7,7 @@ const {
   cookieUpdate,
   featchCookie,
 } = require("../controllers/cookiesControllers");
+const passport = require("passport");
 
 //Mini express app
 const router = express.Router();
@@ -22,11 +23,15 @@ router.param("cookieId", async (req, res, next, cookieId) => {
   next();
 });
 
-router.get("/", cookieList);
+router.get("/", passport.authenticate("jwt", { session: false }), cookieList); // we add the jwtStrategy where you need your rout to be login
 
 router.get("/:cookieId", cookieDetail);
 
-router.delete("/:cookieId", cookieDelete);
+router.delete(
+  "/:cookieId",
+  passport.authenticate("jwt", { session: false }),
+  cookieDelete
+);
 
 router.put("/:cookieId", upload.single("image"), cookieUpdate);
 
