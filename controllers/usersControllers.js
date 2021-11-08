@@ -16,7 +16,7 @@ exports.signup = async (req, res, next) => {
   }
 };
 
-exports.signin = async (req, res, next) => {
+exports.login = async (req, res, next) => {
   const token = generateToken(req.user);
   res.json({ token });
 };
