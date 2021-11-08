@@ -25,10 +25,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     });
     // to show the shop detail in each cookie
-    Cookie.belongTo(models.Shop, {
-      foreignKey: "shopId",
-      as: "library",
-    });
+    // Cookie.belongTo(models.Shop, {
+    //   foreignKey: "shopId",
+    //   as: "shop",
+    // });
   };
   return Cookie;
 };
