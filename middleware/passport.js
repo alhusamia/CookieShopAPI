@@ -10,17 +10,20 @@ exports.localStrategy = new localStrategy(async (username, password, done) => {
       where: { username: username },
     });
 
-    let passwordMatch;
-    if (user) {
-      passwordMatch = await bcrypt.compare(password, user.password);
-    }
+    const passwordMatch = user
+      ? await bcrypt.compare(password, user.password)
+      : false;
 
-    if (passwordMatch) {
-      done(null, user); // this attach user to req.user
-    } else {
-      done({ status: 401, message: "Incorrect Password" });
-    }
+    return done(null, passwordMatch ? user : false); // this attach user to req.user
+    //coustum =>
   } catch (error) {
     done(error);
   }
 });
+
+//coustum message
+// if (passwordMatch) {
+//   return done(null, user); // this attach user to req.user
+// } else {
+//   return done({ status: 401, message: "Incorrect Username or Password" });
+// }
