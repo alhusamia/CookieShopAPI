@@ -1,7 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const passport = require("passport");
+require("dotenv").config();
 const { localStrategy, jwtStrategy } = require("./middleware/passport");
+const db = require("./db/models");
 
 //Routes
 const cookiesRouter = require("./routs/cookie");
